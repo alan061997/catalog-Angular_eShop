@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
-  urlBase = 'http://netflames-catalog.herokuapp.com/api/catalog/';
+  urlBase = 'http://localhost:8081/api/catalog/';
   items: any;
   brands: any;
   types: any;
@@ -29,7 +29,7 @@ export class ItemsComponent implements OnInit {
   getItems(filterBrand: number = 0, filterType: number = 0) {
     if (filterBrand === 0 && filterType === 0)  {
       this.http.get( this.urlBase + 'item' ).subscribe(response => {
-        this.items = response;
+        this.items = response['content'];
       }, error => {
         console.error(error);
       });
@@ -38,7 +38,7 @@ export class ItemsComponent implements OnInit {
 
     if (filterBrand >= 1 && filterType <= 0)  {
         this.http.get(this.urlBase + 'item/brand/' + filterBrand).subscribe(response => {
-        this.items = response;
+        this.items = response['content'];
       }, error => {
         console.error(error);
       });
@@ -47,7 +47,7 @@ export class ItemsComponent implements OnInit {
 
     if (filterType >= 1 && filterBrand <= 0)  {
       this.http.get(this.urlBase + 'item/type/' + filterType).subscribe(response => {
-        this.items = response;
+        this.items = response['content'];
       }, error => {
         console.error(error);
       });
@@ -56,7 +56,7 @@ export class ItemsComponent implements OnInit {
 
     if (filterType >= 1 && filterBrand >= 1)  {
       this.http.get(this.urlBase + 'item/filter/' + filterBrand + '/' + filterType).subscribe(response => {
-        this.items = response;
+        this.items = response['content'];
       }, error => {
         console.error(error);
       });
